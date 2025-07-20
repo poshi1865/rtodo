@@ -6,7 +6,7 @@ enum Priority {
     Low,
     Medium,
     High,
-    Critical
+    Critical,
 }
 
 enum Operation {
@@ -14,7 +14,7 @@ enum Operation {
     Add(String, Priority),
     Delete(u8),
     Modify(u8, String),
-    Invalid
+    Invalid,
 }
 
 const USAGE_STRING: &'static str = "<USAGE STRING>";
@@ -38,7 +38,7 @@ fn parse_arguments(args: Vec<String>) -> Option<Operation> {
                 let p: String = take_user_input_with_prompt(priority_prompt);
                 let priority = p.as_str();
                 if priority.starts_with("crit") {
-                   return Some(Operation::Add(task, Priority::Critical));
+                    return Some(Operation::Add(task, Priority::Critical));
                 }
                 if priority.starts_with("hi") {
                     return Some(Operation::Add(task, Priority::High));
@@ -49,13 +49,13 @@ fn parse_arguments(args: Vec<String>) -> Option<Operation> {
 
                 if priority.starts_with("lo") {
                     return Some(Operation::Add(task, Priority::Low));
-                }
-                else {
+                } else {
                     priority_prompt = "Wrong input, try again: ";
                 }
             }
-        },
+        }
 
+        // TODO: Add multiple delete in one op. Eg: rtodo d 10 2 3 8
         "d" => {
             let mut delete_prompt: &str = "Enter index to delete: ";
             let mut correct_input: bool = true;
@@ -73,7 +73,7 @@ fn parse_arguments(args: Vec<String>) -> Option<Operation> {
                 delete_prompt = "Wrong input, try again: ";
                 correct_input = true;
             }
-        },
+        }
 
         "m" => {
             let mut modify_prompt_index: &str = "Enter index to modify: ";
@@ -94,7 +94,7 @@ fn parse_arguments(args: Vec<String>) -> Option<Operation> {
                 modify_prompt_index = "Wrong input, try again: ";
                 correct_input = true;
             }
-        },
+        }
 
         _ => {
             return Some(Operation::Invalid);
