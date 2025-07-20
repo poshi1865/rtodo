@@ -32,16 +32,26 @@ fn parse_arguments(args: Vec<String>) -> Option<Operation> {
         "a" => {
             let task_prompt: &str = "Task: ";
             let task: String = take_user_input_with_prompt(task_prompt);
-            let mut priority_prompt: &str = "Assign Priority. 1. Critical, 2. High, 3. Medium, 4. Low: ";
+            let mut priority_prompt: &str = "Assign Priority. (critical, high, medium, low): ";
 
             loop {
-                let priority: u8 = take_user_input_with_prompt(priority_prompt).parse().unwrap_or_else(|_| 255);
-                match priority {
-                    1 => return Some(Operation::Add(task, Priority::Critical)),
-                    2 => return Some(Operation::Add(task, Priority::High)),
-                    3 => return Some(Operation::Add(task, Priority::Medium)),
-                    4 => return Some(Operation::Add(task, Priority::Low)),
-                    _ => priority_prompt = "Wrong input, choose one of 1,2,3 or 4: "
+                let p: String = take_user_input_with_prompt(priority_prompt);
+                let priority = p.as_str();
+                if priority.starts_with("crit") {
+                   return Some(Operation::Add(task, Priority::Critical));
+                }
+                if priority.starts_with("hi") {
+                    return Some(Operation::Add(task, Priority::High));
+                }
+                if priority.starts_with("med") {
+                    return Some(Operation::Add(task, Priority::Medium));
+                }
+
+                if priority.starts_with("lo") {
+                    return Some(Operation::Add(task, Priority::Low));
+                }
+                else {
+                    priority_prompt = "Wrong input, try again: ";
                 }
             }
         },
