@@ -1,16 +1,23 @@
 Add todo tasks with:
-	rtodo -p high -a Fix linear probing logic
-	rtodo -p low -a add comments to text_extractor.
+	$ rtodo a
+	 Gimme: Fix linear probing logic.
+	 Assign priority: 1. Critical, 2. High, 3. Medium, 4. Low
+	 Press enter for medium default.
+	 1
+
+	 Saved, thanks!
 
 Deletion:
-	rtodo -d linear probing logic
-	If this is similar to the actual string, it gets removed. Will have to define a threshold.
-	If not then, return item not found.
+	rtodo d 5
+	Deletes item at index 5.
 
 Modification:
-	rtodo -m linear probing logic
-	If this is similar to the actual string, ask for new string to replace.
-	If not then, return item not found.
+	rtodo m 10
+	Modifies item at index 10
+
+List:
+	rtodo
+	This will also run when bash is init.
 
 Make high priority tasks red, low priority white and medium priority yellow.
 Critical priority will have a larger font.
